@@ -4,35 +4,54 @@
 
 	function buttonPress(input) {
 		calcDisplay.push(input);
-		calcDisplay.push(space)
+		//calcDisplay.push(space)
 		console.log(calcDisplay);
 	}
-	$("button#1.number").on('click', function () {
+	$("button#1.number").click(function () {
 		buttonPress(1);
 	});
-	$(".number2").click(function () {
+	$(".number#2.number").click(function () {
 		buttonPress(2);
 	});
-	$(".number3").click(function () {
+	$(".number#3.number").click(function () {
 		buttonPress(3);
 	});
-	$(".number4").click(function () {
+	$(".number#4.number").click(function () {
 		buttonPress(4);
 	});
-	$(".number5").click(function () {
+	$(".number#5.number").click(function () {
 		buttonPress(5);
 	});
-	$(".number6").click(function () {
+	$(".number#6.number").click(function () {
 		buttonPress(6);
 	});
-	$(".number7").click(function () {
+	$(".number#7.number").click(function () {
 		buttonPress(7);
 	});
-	$(".number8").click(function () {
+	$(".number#8.number").click(function () {
 		buttonPress(8);
 	});
-	$(".number9").click(function () {
+	$(".number#9.number").click(function () {
 		buttonPress(9);
+	});
+	$(".number#10.number").click(function () {
+		buttonPress("+");
+	});
+	$(".number#11.number").click(function () {
+		buttonPress("-");
+	});
+	$(".number#12.number").click(function () {
+		buttonPress("/");
+	});
+	$(".number#13.number").click(function () {
+		buttonPress("*");
+	});
+	$(".number#14.number").click(function () {
+		var compute = calcDisplay.join("");
+		console.log(eval(compute));
+	});
+	$(".number#15.number").click(function () {
+		calcDisplay = []
 	});
 	$("h4").append(calcDisplay);
 })();
