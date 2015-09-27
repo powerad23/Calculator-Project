@@ -6,3 +6,9 @@ td {
 	height: 100%;
 	width: 100%;
 }
+#output {
+	display: inline-block;
+	border: solid;
+	height: 50px;
+	width: 300px;
+}

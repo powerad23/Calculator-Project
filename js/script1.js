@@ -2,10 +2,15 @@
 	var calcDisplay = [];
 	
 	
-	function display() {
-		$("<p>"+ calcDisplay+"</p>").appendTo('#output')
+	function display(input) {
+		$('<span>' + input + '</span>').appendTo('#output');
 	}
-	
+	function evaluate() {
+		var compute = calcDisplay.join("");
+		var answer = eval(compute)
+		display(answer);
+		console.log(answer);
+	}
 	function buttonPress(input) {
 		calcDisplay.push(input);
 		console.log(calcDisplay);
@@ -14,28 +19,28 @@
 	function expressionPress(expression){
 		switch(expression){
 			case "plus":
-				calcDisplay.push("+")
+				buttonPress("+")
+				display("+")
 			break;
 			
 			case "minus":
-				calcDisplay.push("-")
+				buttonPress("-")
 			break;
 			
 			case "divide":
-				calcDisplay.push("/")
+				buttonPress("/")
 			break;
 			
 			case "multiply":
-				calcDisplay.push("*")
+				buttonPress("*")
 			break;
 			
 			case "sqr":
-				calcDisplay.push(Math.sqrt(calcDisplay[calcDisplay.length -1]))
+				buttonPress(Math.sqrt(calcDisplay[calcDisplay.length -1]))
 			break;
 			
 			case "evaulate":
-				var compute = calcDisplay.join("")
-				var answer = eval(compute)
+				evaluate()
 			break;
 	}
 	}
@@ -43,13 +48,12 @@
 	$("button.number").click(function() {
 		var value = $(this).data('value');
 		buttonPress(value);
-		display();
+		display(value);
 	});
 	
 	$("button.expression").click(function() {
 		var value = $(this).data('type');
 		expressionPress(value);
-		display();
 	});
 	
 	
