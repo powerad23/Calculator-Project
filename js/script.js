@@ -65,5 +65,10 @@
 		calcDisplay = []
 		$("#output").empty();
 	});
+	$(".number#16.number").click(function () {
+		buttonPress("*")
+		buttonPress(calcDisplay[calcDisplay.length -2])
+		$("<p>"+ calcDisplay+"</p>").appendTo('#output')
+	});
 	
 })();
