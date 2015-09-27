@@ -8,7 +8,7 @@
 	function evaluate() {
 		var compute = calcDisplay.join("");
 		var answer = eval(compute)
-		display(answer);
+		display(" " + "=" + " " +answer);
 		console.log(answer);
 	}
 	function buttonPress(input) {
@@ -25,22 +25,31 @@
 			
 			case "minus":
 				buttonPress("-")
+				display("-")
 			break;
 			
 			case "divide":
 				buttonPress("/")
+				display("/")
 			break;
 			
 			case "multiply":
 				buttonPress("*")
+				display("*")
 			break;
 			
 			case "sqr":
-				buttonPress(Math.sqrt(calcDisplay[calcDisplay.length -1]))
+				var findNumber = calcDisplay[calcDisplay.length -2]
+				buttonPress(findNumber)
 			break;
 			
-			case "evaulate":
+			case "evaluate":
 				evaluate()
+			break;
+			
+			case "clear":
+				calcDisplay = []
+				$('#output').empty();
 			break;
 	}
 	}
