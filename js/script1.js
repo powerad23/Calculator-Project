@@ -1,14 +1,67 @@
-(function () {
+//(function () {
 	var calcDisplay = [];
+	
+	
+	function display() {
+		$("<p>"+ calcDisplay+"</p>").appendTo('#output')
+	}
+	
 	function buttonPress(input) {
 		calcDisplay.push(input);
 		console.log(calcDisplay);
 	}
-	$("button#1.number").click(function () {
-		buttonPress(1);
-		$("<p>"+ calcDisplay+"</p>").appendTo('#output')
+
+	function expressionPress(expression){
+		switch(expression){
+			case "plus":
+				calcDisplay.push("+")
+			break;
+			
+			case "minus":
+				calcDisplay.push("-")
+			break;
+			
+			case "divide":
+				calcDisplay.push("/")
+			break;
+			
+			case "multiply":
+				calcDisplay.push("*")
+			break;
+			
+			case "sqr":
+				calcDisplay.push(Math.sqrt(calcDisplay[calcDisplay.length -1]))
+			break;
+			
+			case "evaulate":
+				var compute = calcDisplay.join("")
+				var answer = eval(compute)
+			break;
+	}
+	}
+	
+	$("button.number").click(function() {
+		var value = $(this).data('value');
+		buttonPress(value);
+		display();
 	});
-	$(".number#2.number").click(function () {
+	
+	$("button.expression").click(function() {
+		var value = $(this).data('type');
+		expressionPress(value);
+		display();
+	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*$(".number#2.number").click(function () {
 		buttonPress(2);
 		$("<p>"+ calcDisplay+"</p>").appendTo('#output')
 	});
@@ -70,4 +123,4 @@
 		$("<p>"+ calcDisplay+"</p>").appendTo('#output')
 	});
 	
-})();
+})();*/
