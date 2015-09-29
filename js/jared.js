@@ -21,20 +21,26 @@
       evalObject.initString = array.join(' ');
       return evaluateScope(array, 0);
     }
-
+	var lastReadIndex = 0;
     function evaluateScope(array, total) {
       var i = 0,
         hasNumber = false;
 
       for (i; i < array.length; i++) {
         var char = array[i];
-
-        if (newScope(char)) {
-		  total = evaluateScope(array.splice(array[i], array.length - 1), total);
-          continue;
+		//Splice array according to that value. return evaluateScope with array splice and running total
+        
+		 if (newScope(char)) {
+          var scopeArray = array.splice(i + 1, array.length - 1);
+          evalObject.currEval.baseNum = evaluateScope(scopeArray, total);
+          var remainingArray = scopeArray.splice(lastReadIndex + 1,
+            scopeArray.length - lastReadIndex)
+          return evaluateScope(remainingArray || [], total);
         }
-        if (closedScope(char)) {
-          return total;
+        //Return to some stored value the furthest array value read (whatever I is)
+		if (closedScope(char)) {
+          lastReadIndex = i
+		  return total;
         }
 
         if (isNumeric(char) && !hasNumber) {

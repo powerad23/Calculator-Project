@@ -7,7 +7,6 @@
 	}
 
 	function evaluate() {
-		Processor.ProcessInputArray(calcDisplay);
 		var answer = Processor.ProcessInputArray(calcDisplay);
 		display(answer);
 	}
