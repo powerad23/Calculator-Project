@@ -6,10 +6,7 @@
 		$('<span>' + input + '</span>').appendTo('#output');
 	}
 	function evaluate() {
-		var compute = calcDisplay.join("");
-		var answer = eval(compute)
-		display(" " + "=" + " " +answer);
-		console.log(answer);
+		processInputArray(calcDisplay);
 	}
 	function buttonPress(input) {
 		calcDisplay.push(input);
