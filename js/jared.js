@@ -19,7 +19,7 @@
     function processInputArray(array) {
       evalObject.initArray = array;
       evalObject.initString = array.join(' ');
-      evalObject.total = evaluateScope(array, 0);
+      return evaluateScope(array, 0);
     }
 
     function evaluateScope(array, total) {
@@ -30,7 +30,7 @@
         var char = array[i];
 
         if (newScope(char)) {
-          evaluateScope(array, total);
+		  total = evaluateScope(array.splice(array[i], array.length - 1), total);
           continue;
         }
         if (closedScope(char)) {
@@ -70,7 +70,7 @@
     }
 
     function evaluate() {
-      return evalObject.currEval.operator.eval(baseNum, secondNum)
+      return evalObject.currEval.operator.eval(evalObject.currEval.baseNum, evalObject.currEval.secondNum)
     }
 
     function isExpressionChar(char) {

@@ -8,10 +8,13 @@
 
 	function evaluate() {
 		Processor.ProcessInputArray(calcDisplay);
+		var answer = Processor.ProcessInputArray(calcDisplay);
+		display(answer);
 	}
 
 	function buttonPress(input) {
 		calcDisplay.push(input);
+		display(input)
 		console.log(calcDisplay);
 	}
 
@@ -19,22 +22,18 @@
 		switch (expression) {
 			case "plus":
 				buttonPress("+")
-				display("+")
 				break;
 
 			case "minus":
 				buttonPress("-")
-				display("-")
 				break;
 
 			case "divide":
 				buttonPress("/")
-				display("/")
 				break;
 
 			case "multiply":
 				buttonPress("*")
-				display("*")
 				break;
 
 			case "sqr":
@@ -50,13 +49,20 @@
 				calcDisplay = []
 				$('#output').empty();
 				break;
+				
+			case "(":
+				buttonPress("(")
+				break;
+				
+			case ")":
+				buttonPress(")")
+				break;
 		}
 	}
 
 	$("button.number").click(function () {
 		var value = $(this).data('value');
 		buttonPress(value);
-		display(value);
 	});
 
 	$("button.expression").click(function () {
