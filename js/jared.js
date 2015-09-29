@@ -1,108 +1,114 @@
   /*
-	1.Fix n errors.
-	2.Finish all functions
-	3.Find error states and make a way to catch them
-  */
-  var evalObject = {
-    initArray: [],
-    initString: '',
-    currEval: {
-      baseNum: 0,
-      operator: undefined,
-      secondNum: 0
-    },
-    total: 0
-  }
+                    	1.Fix n errors.
+                    	2.Finish all functions
+                    	3.Find error states and make a way to catch them
+                      */
+  var Processor = (function () {
 
-  function processInputArray(array) {
-    evalObject.initArray = array;
-    evalObject.initString = array.join(' ');
-    evalObject.total = evaluateScope(array, 0);
-  }
-
-  function evaluateScope(array, total) {
-    var i = 0,
-      hasNumber = false;
-
-    for (i; i < array.length; i++) {
-      var char = array[i];
-
-      if (newScope(char)) {
-        evaluateScope(array, total);
-        continue;
-      }
-      if (closedScope(char)) {
-        return total;
-      }
-
-      if (isNumeric(char) && !hasNumber) {
-        evalObject.currEval.baseNum = char;
-        hasNumber = true;
-        continue;
-      } else if (isNumeric(char) && hasNumber) {
-        throw new Error();
-      }
-
-      evalObject.currEval.operator = getExpressionType(array[i]);
-      char = array[++i];
-      evalObject.currEval.secondNum = char;
-
-      total += evaluate();
-      hasNumber = false;
+    var evalObject = {
+      initArray: [],
+      initString: '',
+      currEval: {
+        baseNum: 0,
+        operator: undefined,
+        secondNum: 0
+      },
+      total: 0
     }
 
-    return total;
-  }
+    function processInputArray(array) {
+      evalObject.initArray = array;
+      evalObject.initString = array.join(' ');
+      evalObject.total = evaluateScope(array, 0);
+    }
 
-  function newScope(char) {
-    return char === '(';
-  }
+    function evaluateScope(array, total) {
+      var i = 0,
+        hasNumber = false;
 
-  function closedScope(char) {
-    return char === ')';
-  }
+      for (i; i < array.length; i++) {
+        var char = array[i];
 
-  function isNumeric(char) {
-	var numberCheck = /[0-9]{1,}/
-	var regex = new RegExp(numberCheck);
-	return numberCheck.test(char);
-  }
+        if (newScope(char)) {
+          evaluateScope(array, total);
+          continue;
+        }
+        if (closedScope(char)) {
+          return total;
+        }
 
-  function evaluate() {
+        if (isNumeric(char) && !hasNumber) {
+          evalObject.currEval.baseNum = char;
+          hasNumber = true;
+          continue;
+        } else if (isNumeric(char) && hasNumber) {
+          throw new Error();
+        }
 
-  }
+        evalObject.currEval.operator = getExpressionType(array[i]);
+        char = array[++i];
+        evalObject.currEval.secondNum = char;
 
-  function isExpressionChar(char) {
-    var i = 0;
-    for (i; i < expressionTypes.length; i++) {
-      var type = expressionTypes[i];
-      if (type.val === char) {
-        return true;
+        total = total + evaluate();
+        hasNumber = false;
       }
+
+      return total;
     }
 
-    return false;
-  }
+    function newScope(char) {
+      return char === '(';
+    }
 
-  function getExpressionType(char) {
-    var i = 0;
-    for (i; i < expressionTypes.length; i++) {
-      var type = expressionTypes[i];
-      if (type.val === char) {
-        return type;
+    function closedScope(char) {
+      return char === ')';
+    }
+
+    function isNumeric(char) {
+      var numberCheck = /[0-9]{1,}/
+      return numberCheck.test(char);
+    }
+
+    function evaluate() {
+      return evalObject.currEval.operator.eval(baseNum, secondNum)
+    }
+
+    function isExpressionChar(char) {
+      var i = 0;
+      for (i; i < expressionTypes.length; i++) {
+        var type = expressionTypes[i];
+        if (type.val === char) {
+          return true;
+        }
       }
+
+      return false;
     }
 
-    throw new Error();
-  }
-  var expressionTypes = [{
-    val: '+',
-    eval: function (input1, input2) {
-      return input1 + input2;
+    function getExpressionType(char) {
+      var i = 0;
+      for (i; i < expressionTypes.length; i++) {
+        var type = expressionTypes[i];
+        if (type.val === char) {
+          return type;
+        }
+      }
+
+      throw new Error();
     }
-  }, {
-    val: '-',
-    eval: function (input1, input2) {
-      return input1 - input2;
+    var expressionTypes = [{
+      val: '+',
+      eval: function (input1, input2) {
+        return input1 + input2;
+      }
+    }, {
+      val: '-',
+      eval: function (input1, input2) {
+        return input1 - input2;
+      }
+    }];
+
+    return {
+      ProcessInputArray: processInputArray
     }
-  }];
+  })();
